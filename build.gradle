@@ -23,6 +23,11 @@ dependencies {
 
 defaultTasks 'clean', 'test'
 
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
 task chrome(type: Test) {
     systemProperties['selenide.browser'] = 'chrome'
 }
