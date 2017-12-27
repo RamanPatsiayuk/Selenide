@@ -8,7 +8,10 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.title;
+import static com.selenide.utils.PageTitlesConstants.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.equalTo;
 
 public class MailRuLoginTest {
     private static final String LOGIN = "test_user2017";
@@ -17,7 +20,7 @@ public class MailRuLoginTest {
     @Test
     public void openMailRuHomePageTest(){
         open("https://mail.ru/");
-        $(By.xpath("//title")).shouldHave(text("Mail.Ru: почта, поиск в интернете, новости, игры"));
+        $(By.xpath("//title")).shouldHave(text(MAILRU_HOME_PAGE_TITLE));
     }
 
     @Test
@@ -33,6 +36,8 @@ public class MailRuLoginTest {
     @Test
     public void loginToMailPoTest() {
         EmailPage emailPage = new MailRuHomePage().openHomePage().loginToMail();
-        $(By.xpath("//title")).shouldHave(text("Входящие - Почта Mail.Ru"));
+        //$(By.xpath("//title")).shouldHave(text("Входящие - Почта Mail.Ru"));
+        //assertThat(emailPage.getTitle(), is(equalTo(EMAIL_PAGE_TITLE)));
+        assertThat(emailPage.isTitleCorrect(), is(true));
     }
 }
