@@ -2,6 +2,7 @@ package com.selenide.example;
 
 import com.selenide.pages.EmailPage;
 import com.selenide.pages.MailRuHomePage;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -18,12 +19,14 @@ public class MailRuLoginTest {
     private static final String PASSWORD = "Password123";
 
     @Test
+    @Ignore
     public void openMailRuHomePageTest(){
         open("https://mail.ru/");
         $(By.xpath("//title")).shouldHave(text(MAILRU_HOME_PAGE_TITLE));
     }
 
     @Test
+    @Ignore
     public void loginToMailRuTest() {
         open("https://mail.ru/");
         $("input#mailbox\\:login").val(LOGIN);
@@ -36,7 +39,7 @@ public class MailRuLoginTest {
     @Test
     public void loginToMailPoTest() {
         EmailPage emailPage = new MailRuHomePage().openHomePage().loginToMail();
-        //$(By.xpath("//title")).shouldHave(text("Входящие - Почта Mail.Ru"));
+        //$(By.xpath("//title")).shouldHave(text(EMAIL_PAGE_TITLE));
         //assertThat(emailPage.getTitle(), is(equalTo(EMAIL_PAGE_TITLE)));
         assertThat(emailPage.isTitleCorrect(), is(true));
     }
