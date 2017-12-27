@@ -4,8 +4,8 @@ version '1.0-SNAPSHOT'
 apply plugin: 'groovy'
 apply plugin: 'java'
 
-[compileJava, compileTestJava]*.options.collect {options -> options.encoding = 'UTF-8'}
-[compileJava, compileTestJava]*.options.collect {options -> options.debug = true}
+[compileJava, compileTestJava]*.options.collect { options -> options.encoding = 'UTF-8' }
+[compileJava, compileTestJava]*.options.collect { options -> options.debug = true }
 compileJava.options.debugOptions.debugLevel = "source,lines,vars"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -22,12 +22,16 @@ dependencies {
 
 defaultTasks 'clean', 'test'
 
+task chrome(type: Test) {
+    systemProperties['selenide.browser'] = 'chrome'
+}
+
 task edge(type: Test) {
     systemProperties['selenide.browser'] = 'edge'
 }
 
-task chrome(type: Test) {
-    systemProperties['selenide.browser'] = 'chrome'
+task firefox(type: Test) {
+    systemProperties['selenide.browser'] = 'firefox'
 }
 
 task safari(type: Test) {
@@ -40,10 +44,6 @@ task htmlunit(type: Test) {
 
 task phantomjs(type: Test) {
     systemProperties['selenide.browser'] = 'phantomjs'
-}
-
-task firefox(type: Test) {
-    systemProperties['selenide.browser'] = 'firefox'
 }
 
 
