@@ -33,7 +33,7 @@ public class MailRuLoginTest {
         $("input#mailbox\\:password").val(PASSWORD);
         $("#mailbox\\:domain").selectOptionContainingText("@mail.ru");
         $("label#mailbox\\:submit").click();
-        $(By.xpath("//title")).shouldHave(text("Входящие - Почта Mail.Ru"));
+        $(By.xpath("//title")).shouldHave(text(EMAIL_PAGE_TITLE));
     }
 
     @Test
@@ -41,6 +41,6 @@ public class MailRuLoginTest {
         EmailPage emailPage = new MailRuHomePage().openHomePage().loginToMail();
         //$(By.xpath("//title")).shouldHave(text(EMAIL_PAGE_TITLE));
         //assertThat(emailPage.getTitle(), is(equalTo(EMAIL_PAGE_TITLE)));
-        assertThat(emailPage.isTitleCorrect(), is(true));
+        assertThat("Title is correct", emailPage.isTitleCorrect());
     }
 }
