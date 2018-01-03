@@ -2,19 +2,17 @@ package com.selenide.example;
 
 import com.selenide.pages.EmailPage;
 import com.selenide.pages.MailRuHomePage;
-import com.selenide.utils.PageTitlesConstants;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.title;
-import static com.selenide.utils.PageTitlesConstants.*;
+import static com.codeborne.selenide.Selenide.*;
+import static com.selenide.utils.PageTitlesConstants.EMAIL_PAGE_TITLE;
+import static com.selenide.utils.PageTitlesConstants.MAILRU_HOME_PAGE_TITLE;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 public class MailRuLoginTest {
     private static final String LOGIN = "test_user2017";
@@ -22,13 +20,13 @@ public class MailRuLoginTest {
 
     @Test
     @Ignore
-    public void openMailRuHomePageTest(){
+    public void openMailRuHomePageTest() {
         open("https://mail.ru/");
         $(By.xpath("//title")).shouldHave(text(MAILRU_HOME_PAGE_TITLE));
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void loginToMailRuTest() {
         open("https://mail.ru/");
         $("input#mailbox\\:login").val(LOGIN);
@@ -42,6 +40,6 @@ public class MailRuLoginTest {
     public void loginToMailPoTest() {
         EmailPage emailPage = new MailRuHomePage().openHomePage().loginToMail();
         assertThat(title(), is(equalTo(EMAIL_PAGE_TITLE)));
-        //assertThat("Title is not correct", emailPage.isTitleCorrect());
+        assertThat("Title is not correct", emailPage.isTitleCorrect());
     }
 }
