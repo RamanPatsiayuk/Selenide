@@ -1,10 +1,17 @@
 package com.selenide.example;
 
+import com.codeborne.selenide.Screenshots;
+import com.google.common.io.Files;
 import com.selenide.pages.EmailPage;
 import com.selenide.pages.MailRuHomePage;
+import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import ru.yandex.qatools.allure.annotations.Attachment;
+
+import java.io.File;
+import java.io.IOException;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
@@ -26,7 +33,7 @@ public class MailRuLoginTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void loginToMailRuTest() {
         open("https://mail.ru/");
         $("input#mailbox\\:login").val(LOGIN);
@@ -37,9 +44,22 @@ public class MailRuLoginTest {
     }
 
     @Test
+    @Ignore
     public void loginToMailPoTest() {
         EmailPage emailPage = new MailRuHomePage().openHomePage().loginToMail();
         assertThat(title(), is(equalTo(EMAIL_PAGE_TITLE)));
-        assertThat("Title is not correct", emailPage.isTitleCorrect());
+        //assertThat("Title is not correct", emailPage.isTitleCorrect());
     }
+
+    /*@After
+    public void tearDown() throws IOException {
+        screenshot();
+    }
+
+    @Attachment(type = "image/png")
+    private byte[] screenshot() throws IOException {
+        File screenshot = Screenshots.getLastScreenshot();
+        return Files.toByteArray(screenshot);
+    }*/
 }
+
