@@ -7,5 +7,5 @@ public final class PageTitlesConstants {
     }
 
     public static final String MAILRU_HOME_PAGE_TITLE = "Mail.Ru: почта, поиск в интернете, новости, игры";
-    public static final String EMAIL_PAGE_TITLE = "Водящие - Почта Mail.Ru";
+    public static final String EMAIL_PAGE_TITLE = "Входящие - Почта Mail.Ru";
 }

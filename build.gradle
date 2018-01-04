@@ -7,9 +7,11 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        //classpath "ru.d10xa:gradle-allure-plugin:0.5.5"
+        classpath "ru.d10xa:gradle-allure-plugin:0.5.5"
        // classpath 'ru.vyarus:gradle-quality-plugin:2.4.0'
-        classpath "io.qameta.allure:allure-gradle:2.5"
+
+        //agent "org.aspectj:aspectjweaver:1.8.10"
+        //classpath "io.qameta.allure:allure-gradle:2.5"
     }
 }
 group 'com.selenide.example'
@@ -18,8 +20,8 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'idea'
 //apply plugin: 'ru.vyarus.quality'
-//apply plugin: 'ru.d10xa.allure'
-apply plugin: 'io.qameta.allure'
+apply plugin: 'ru.d10xa.allure'
+//apply plugin: 'io.qameta.allure'
 //apply plugin: 'groovy'
 
 /*plugins{
@@ -64,26 +66,44 @@ dependencies {
     testCompile 'org.hamcrest:hamcrest-all:1.3'
 }
 
-/*allure {
+allure {
     aspectjweaver = true
     // Choose your test framework.
     junit = true
-    allureVersion = "1.5.4"
-}*/
-//tasks.withType(Test)*.finalizedBy allureReport
+    testNG = false
+    spock = false
+
+    allureResultsDir = "$buildDir/allure-results"
+    allureReportDir = "$buildDir/allure-report"
+    aspectjVersion = "1.8.10"
+    allureVersion = "1.5.4" //"2.5.0"
+}
+tasks.withType(Test)*.finalizedBy allureReport
 
 
 //https://github.com/allure-framework/allure-gradle
-allure {
+//http://automation-remarks.com/2017/allure-gradle-without-plugin/
+/*allure {
     version = '2.5.0'
     autoconfigure = true
     aspectjweaver = true
     aspectjVersion = '1.8.10'
-    allureJavaVersion = '2.0-BETA18'
+    allureJavaVersion = '2.0-BETA21'
 }
+task generateAllure(type: Exec) {
+    workingDir "$projectDir/allure/bin"
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+        commandLine 'cmd', '/c', 'allure.bat', 'generate', '-c', '../../integration/build/allure-results'
+    } else {
+        commandLine 'bash', '-c', 'allure', 'generate', '-c',"$projectDir/integration/build/allure-results"
+    }
+}
+tasks.withType(Test)*.finalizedBy generateAllure
+*/
 
 test{
     useJUnit()
+    //systemProperty 'allure.results.directory', 'build/allure-results'
     reports {
         junitXml.enabled = false
         html.enabled = true
@@ -96,12 +116,10 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 task chrome(type: Test) {
-
     //gradle chrome
     systemProperties['selenide.browser'] = 'chrome'
-
     //gradle chrome -Dselenide.browser=chrome
-    //systemProperties['selenide.browser'] = System.getProperty('selenide.browser', 'firefox')
+    //systemProperties['selenide.browser'] = System.getProperty('selenide.browser', 'chrome')
 }
 
 task edge(type: Test) {

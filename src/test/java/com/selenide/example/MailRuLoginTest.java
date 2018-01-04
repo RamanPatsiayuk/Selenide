@@ -4,12 +4,12 @@ import com.codeborne.selenide.Screenshots;
 import com.google.common.io.Files;
 import com.selenide.pages.EmailPage;
 import com.selenide.pages.MailRuHomePage;
-import io.qameta.allure.Attachment;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import ru.yandex.qatools.allure.annotations.Attachment;
 //import ru.yandex.qatools.allure.annotations.Attachment;
 
 import java.io.File;
