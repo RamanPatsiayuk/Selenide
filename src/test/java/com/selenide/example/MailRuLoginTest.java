@@ -4,11 +4,13 @@ import com.codeborne.selenide.Screenshots;
 import com.google.common.io.Files;
 import com.selenide.pages.EmailPage;
 import com.selenide.pages.MailRuHomePage;
+import io.qameta.allure.Attachment;
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import ru.yandex.qatools.allure.annotations.Attachment;
+//import ru.yandex.qatools.allure.annotations.Attachment;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +28,7 @@ public class MailRuLoginTest {
     private static final String PASSWORD = "Password123";
 
     @Test
-    @Ignore
+    //@Ignore
     public void openMailRuHomePageTest() {
         open("https://mail.ru/");
         $(By.xpath("//title")).shouldHave(text(MAILRU_HOME_PAGE_TITLE));
@@ -40,18 +42,18 @@ public class MailRuLoginTest {
         $("input#mailbox\\:password").val(PASSWORD);
         $("#mailbox\\:domain").selectOptionContainingText("@mail.ru");
         $("label#mailbox\\:submit").click();
-        $(title()).shouldHave(text(EMAIL_PAGE_TITLE));
+        $(By.xpath("//title")).shouldHave(text(EMAIL_PAGE_TITLE));
     }
 
     @Test
     @Ignore
     public void loginToMailPoTest() {
         EmailPage emailPage = new MailRuHomePage().openHomePage().loginToMail();
-        assertThat(title(), is(equalTo(EMAIL_PAGE_TITLE)));
-        //assertThat("Title is not correct", emailPage.isTitleCorrect());
+        //assertThat(title(), is(equalTo(EMAIL_PAGE_TITLE)));
+        assertThat("Title is not correct", emailPage.isTitleCorrect());
     }
 
-    /*@After
+    @After
     public void tearDown() throws IOException {
         screenshot();
     }
@@ -59,7 +61,8 @@ public class MailRuLoginTest {
     @Attachment(type = "image/png")
     private byte[] screenshot() throws IOException {
         File screenshot = Screenshots.getLastScreenshot();
+        //FileUtils.copyFile(screenshot, new File("build\\allure-results\\screenshots\\" + screenshot.getName()));
         return Files.toByteArray(screenshot);
-    }*/
+    }
 }
 
