@@ -118,8 +118,8 @@ test {
 }
 
 tasks.withType(Test) {
-    systemProperties['selenide.browser'] = System.getProperty('selenide.browser', 'chrome')
-    systemProperties['env'] = System.getProperty('env', 'qa')
+    systemProperties['selenide.browser'] = System.getProperty('selenide.browser', 'firefox')
+    systemProperties['env'] = System.getProperty('env', 'local')
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
