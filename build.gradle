@@ -114,7 +114,10 @@ test {
         junitXml.enabled = false
         html.enabled = true
     }
-    systemProperties['env'] = System.getProperty('env', 'qa')
+    systemProperties = [
+            env    : System.getProperty('env', 'qa'),
+            browser: System.getProperty('browser', 'firefox')
+    ]
 }
 
 tasks.withType(Test) {
