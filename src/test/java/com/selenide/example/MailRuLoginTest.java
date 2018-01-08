@@ -2,53 +2,61 @@ package com.selenide.example;
 
 import com.codeborne.selenide.Screenshots;
 import com.google.common.io.Files;
+import com.selenide.models.User;
 import com.selenide.pages.EmailPage;
 import com.selenide.pages.MailRuHomePage;
-import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.yandex.qatools.allure.annotations.Attachment;
-//import ru.yandex.qatools.allure.annotations.Attachment;
 
 import java.io.File;
 import java.io.IOException;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 import static com.selenide.utils.PageTitlesConstants.EMAIL_PAGE_TITLE;
 import static com.selenide.utils.PageTitlesConstants.MAILRU_HOME_PAGE_TITLE;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:/context.xml"})
 public class MailRuLoginTest {
-    private static final String LOGIN = "test_user2017";
-    private static final String PASSWORD = "Password123";
+
+    @Autowired
+    MailRuHomePage mailRuHomePage;
+
+    @Autowired
+    private User user;
 
     @Test
-    //@Ignore
+    @Ignore
     public void openMailRuHomePageTest() {
-        open("https://mail.ru/");
+        mailRuHomePage.openHomePage();
         $(By.xpath("//title")).shouldHave(text(MAILRU_HOME_PAGE_TITLE));
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void loginToMailRuTest() {
         open("https://mail.ru/");
-        $("input#mailbox\\:login").val(LOGIN);
-        $("input#mailbox\\:password").val(PASSWORD);
-        $("#mailbox\\:domain").selectOptionContainingText("@mail.ru");
+        $("input#mailbox\\:login").val(user.getLogin());
+        $("input#mailbox\\:password").val(user.getPassword());
+        $("#mailbox\\:domain").selectOptionContainingText(user.getDomain());
         $("label#mailbox\\:submit").click();
         $(By.xpath("//title")).shouldHave(text(EMAIL_PAGE_TITLE));
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void loginToMailPoTest() {
-        EmailPage emailPage = new MailRuHomePage().openHomePage().loginToMail();
+        EmailPage emailPage = mailRuHomePage.openHomePage().loginToMail(user);
         //assertThat(title(), is(equalTo(EMAIL_PAGE_TITLE)));
         assertThat("Title is not correct", emailPage.isTitleCorrect());
     }

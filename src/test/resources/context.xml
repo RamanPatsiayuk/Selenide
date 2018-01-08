@@ -1,0 +1,30 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!--http://www.summa.com/blog/2009/04/20/6-tips-for-managing-property-files-with-spring-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+   <!-- <context:annotation-config/>-->
+    <!--<context:property-placeholder location="classpath:environments/#{systemProperties['environment'] ?: 'local'}/config.properties"/>-->
+    <context:component-scan base-package="com.selenide"/>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:environments/#{systemProperties['environment'] ?: 'LOCAL'}/config.properties</value>
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+
+    <bean id="user" class="com.selenide.models.User">
+        <property name="login" value="${login}"/>
+        <property name="password" value="${password}"/>
+        <property name="domain" value="${domain}"/>
+    </bean>
+</beans>
