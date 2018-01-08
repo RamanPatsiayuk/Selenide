@@ -8,7 +8,7 @@ buildscript {
     }
     dependencies {
         classpath "ru.d10xa:gradle-allure-plugin:0.5.5"
-       // classpath 'ru.vyarus:gradle-quality-plugin:2.4.0'
+        // classpath 'ru.vyarus:gradle-quality-plugin:2.4.0'
 
         //agent "org.aspectj:aspectjweaver:1.8.10"
         //classpath "io.qameta.allure:allure-gradle:2.5"
@@ -40,7 +40,7 @@ compileTestJava {
     options.encoding = 'UTF-8'
 }
 
-ext{
+ext {
     selenideVersion = '4.9'
     junitVersion = '4.12'
     springVersion = '5.0.2.RELEASE'
@@ -87,7 +87,6 @@ allure {
 }
 tasks.withType(Test)*.finalizedBy allureReport
 
-
 //https://github.com/allure-framework/allure-gradle
 //http://automation-remarks.com/2017/allure-gradle-without-plugin/
 /*allure {
@@ -108,13 +107,19 @@ task generateAllure(type: Exec) {
 tasks.withType(Test)*.finalizedBy generateAllure
 */
 
-test{
+test {
     useJUnit()
     //systemProperty 'allure.results.directory', 'build/allure-results'
     reports {
         junitXml.enabled = false
         html.enabled = true
     }
+    systemProperties['env'] = System.getProperty('env', 'qa')
+}
+
+tasks.withType(Test) {
+    systemProperties['selenide.browser'] = System.getProperty('selenide.browser', 'chrome')
+    systemProperties['env'] = System.getProperty('env', 'qa')
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
@@ -122,16 +127,11 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from 'build/docs/javadoc'
 }
 
-task env(type: Test){
-    //gradle env -Denvironment=qa
-    systemProperties['environment'] = System.getProperty('environment', 'qa')
-}
-
 task chrome(type: Test) {
     //gradle chrome
-    systemProperties['selenide.browser'] = 'chrome'
+    //systemProperties['selenide.browser'] = 'chrome'
     //gradle chrome -Dselenide.browser=chrome
-    //systemProperties['selenide.browser'] = System.getProperty('selenide.browser', 'chrome')
+    systemProperties['selenide.browser'] = System.getProperty('selenide.browser', 'chrome')
 }
 
 task edge(type: Test) {
@@ -152,6 +152,15 @@ task htmlunit(type: Test) {
 
 task phantomjs(type: Test) {
     systemProperties['selenide.browser'] = 'phantomjs'
+}
+
+task cleanBuild {
+    dependsOn 'clean'
+    dependsOn 'build'
+}
+
+task cleanBuild1(type: GradleBuild) {
+    tasks = ['clean', 'build']
 }
 
 

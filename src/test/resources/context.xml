@@ -3,19 +3,23 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
    <!-- <context:annotation-config/>-->
-    <!--<context:property-placeholder location="classpath:environments/#{systemProperties['environment'] ?: 'local'}/config.properties"/>-->
+   <!-- <context:property-placeholder location="classpath:environments/#{systemProperties['env'] ?: 'local'}/config.properties"/>-->
     <context:component-scan base-package="com.selenide"/>
+
+   <!-- <util:properties id="properties" location="environments/#{systemProperties['environment'] ?: 'LOCAL'}/config.properties"/>-->
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:environments/#{systemProperties['environment'] ?: 'LOCAL'}/config.properties</value>
+                <value>classpath:/environments/#{systemProperties['env'] ?: 'LOCAL'}/config.properties</value>
+               <!-- <value>classpath:environments/#{systemEnvironment['env']}/config.properties</value>-->
             </list>
         </property>
         <property name="ignoreResourceNotFound" value="true"/>
