@@ -4,10 +4,15 @@ public class User {
 
     private String login;
     private String password;
+    private String domain;
 
-    public User(String login, String password) {
+    public User() {
+    }
+
+    public User(String login, String password, String domain) {
         this.login = login;
         this.password = password;
+        this.domain = domain;
     }
 
     public String getLogin() {
@@ -24,6 +29,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
     @Override

@@ -43,6 +43,7 @@ compileTestJava {
 ext{
     selenideVersion = '4.9'
     junitVersion = '4.12'
+    springVersion = '5.0.2.RELEASE'
 }
 
 repositories {
@@ -62,8 +63,14 @@ defaultTasks 'build', 'clean', 'test'
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.11'
     compile 'com.codeborne:selenide:4.9'
+    compile group: 'org.springframework', name: 'spring-core', version: springVersion
+    compile group: 'org.springframework', name: 'spring-context', version: springVersion
+    compile group: 'org.springframework', name: 'spring-context-support', version: springVersion
+    compile group: 'org.springframework', name: 'spring-beans', version: springVersion
+    testCompile group: 'org.springframework', name: 'spring-test', version: springVersion
     testCompile group: 'junit', name: 'junit', version: junitVersion
     testCompile 'org.hamcrest:hamcrest-all:1.3'
+
 }
 
 allure {
@@ -113,6 +120,11 @@ test{
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from 'build/docs/javadoc'
+}
+
+task env(type: Test){
+    //gradle env -Denvironment=qa
+    systemProperties['environment'] = System.getProperty('environment', 'qa')
 }
 
 task chrome(type: Test) {
