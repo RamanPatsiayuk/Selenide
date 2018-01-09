@@ -115,7 +115,7 @@ test {
         html.enabled = true
     }
     systemProperties = [
-            env    : System.getProperty('env', 'qa'),
+            env    : System.getProperty('env', 'local'),
             browser: System.getProperty('browser', 'firefox')
     ]
 }

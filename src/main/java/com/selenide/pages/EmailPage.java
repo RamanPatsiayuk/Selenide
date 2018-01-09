@@ -6,7 +6,7 @@ public class EmailPage {
     private static final String EMAIL_PAGE_TITLE = "Входящие - Почта Mail.Ru";
 
     public boolean isTitleCorrect() {
-        return title().matches(EMAIL_PAGE_TITLE);
+        return title().contains(EMAIL_PAGE_TITLE);
     }
 
 }

@@ -1,11 +1,13 @@
 package com.selenide.example;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Screenshots;
 import com.google.common.io.Files;
 import com.selenide.models.User;
 import com.selenide.pages.EmailPage;
 import com.selenide.pages.MailRuHomePage;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,6 +61,11 @@ public class MailRuLoginTest {
         EmailPage emailPage = mailRuHomePage.openHomePage().loginToMail(user);
         //assertThat(title(), is(equalTo(EMAIL_PAGE_TITLE)));
         assertThat("Title is not correct", emailPage.isTitleCorrect());
+    }
+
+    @Before
+    public void setUp(){
+        Configuration.timeout = 6000;
     }
 
     @After
