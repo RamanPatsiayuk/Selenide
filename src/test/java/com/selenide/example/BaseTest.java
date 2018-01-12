@@ -19,12 +19,17 @@ public abstract class BaseTest {
 
     @After
     public void tearDown() throws IOException {
-        screenshot();
+        try {
+            screenshot();
+        }catch (NullPointerException ex){
+            ex.getMessage();
+        }
     }
 
     @Attachment(type = "image/png")
     private byte[] screenshot() throws IOException {
         File screenshot = Screenshots.getLastScreenshot();
+        if(screenshot.exists() && !screenshot.isDirectory())
         FileUtils.copyFile(screenshot, new File("build\\allure-results\\screenshots\\" + screenshot.getName()));
         return Files.toByteArray(screenshot);
     }
