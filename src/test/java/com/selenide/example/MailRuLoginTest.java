@@ -2,14 +2,13 @@ package com.selenide.example;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Screenshots;
+import com.codeborne.selenide.junit.ScreenShooter;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.google.common.io.Files;
 import com.selenide.models.User;
 import com.selenide.pages.EmailPage;
 import com.selenide.pages.MailRuHomePage;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +28,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/context.xml"})
-public class MailRuLoginTest {
+public class MailRuLoginTest extends BaseTest {
+    @Rule
+    public ScreenShooter makeScreenshotOnFailure = ScreenShooter.failedTests();
 
     @Autowired
-    MailRuHomePage mailRuHomePage;
+    private MailRuHomePage mailRuHomePage;
 
     @Autowired
     private User user;
@@ -56,28 +57,9 @@ public class MailRuLoginTest {
     }
 
     @Test
-    //@Ignore
     public void loginToMailPoTest() {
         EmailPage emailPage = mailRuHomePage.openHomePage().loginToMail(user);
-        //assertThat(title(), is(equalTo(EMAIL_PAGE_TITLE)));
         assertThat("Title is not correct", emailPage.isTitleCorrect());
-    }
-
-    @Before
-    public void setUp(){
-        Configuration.timeout = 6000;
-    }
-
-    @After
-    public void tearDown() throws IOException {
-        screenshot();
-    }
-
-    @Attachment(type = "image/png")
-    private byte[] screenshot() throws IOException {
-        File screenshot = Screenshots.getLastScreenshot();
-        //FileUtils.copyFile(screenshot, new File("build\\allure-results\\screenshots\\" + screenshot.getName()));
-        return Files.toByteArray(screenshot);
     }
 }
 
