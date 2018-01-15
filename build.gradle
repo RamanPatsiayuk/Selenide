@@ -120,9 +120,17 @@ test {
     ]
 }
 
-tasks.withType(Test) {
+/*tasks.withType(Test) {
     systemProperties['selenide.browser'] = System.getProperty('selenide.browser', 'firefox')
     systemProperties['env'] = System.getProperty('env', 'local')
+}*/
+
+tasks.withType(Test).all { testTask ->
+    systemProperties['selenide.browser'] = System.getProperty('selenide.browser', 'firefox')
+    systemProperties['env'] = System.getProperty('env', 'local')
+    testTask.systemProperties['file.encoding'] = 'UTF-8'
+    testTask.testLogging.showStandardStreams = true
+    testTask.outputs.upToDateWhen { false }
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {

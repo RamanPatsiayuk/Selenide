@@ -46,7 +46,7 @@ public class MailRuLoginTest extends BaseTest {
 
     @Test
     public void loginToMailPoTest() {
-        EmailPage emailPage = mailRuHomePage.openHomePage().loginToMail(user);
+        mailRuHomePage.openHomePage().loginToMail(user);
         assertThat(title(), is(equalTo(EMAIL_PAGE_TITLE)));
         //assertThat("Title is not correct", emailPage.isTitleCorrect());
     }
