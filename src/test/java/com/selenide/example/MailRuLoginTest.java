@@ -29,14 +29,12 @@ public class MailRuLoginTest extends BaseTest {
     private User user;
 
     @Test
-    @Ignore
     public void openMailRuHomePageTest() {
         mailRuHomePage.openHomePage();
         $(By.xpath("//title")).shouldHave(text(MAILRU_HOME_PAGE_TITLE));
     }
 
     @Test
-    @Ignore
     public void loginToMailRuTest() {
         open("https://mail.ru/");
         $("input#mailbox\\:login").val(user.getLogin());

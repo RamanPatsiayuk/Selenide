@@ -30,7 +30,7 @@ public abstract class BaseTest {
     private byte[] screenshot() throws IOException {
         File screenshot = Screenshots.getLastScreenshot();
         if(screenshot.exists() && !screenshot.isDirectory())
-        FileUtils.copyFile(screenshot, new File("build\\allure-results\\screenshots\\" + screenshot.getName()));
+            FileUtils.copyFile(screenshot, new File("build\\allure-results\\screenshots\\" + screenshot.getName()));
         return Files.toByteArray(screenshot);
     }
 }
