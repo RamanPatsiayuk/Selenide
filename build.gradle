@@ -62,7 +62,7 @@ defaultTasks 'build', 'clean', 'test'
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.11'
-    compile 'com.codeborne:selenide:4.9'
+    compile 'com.codeborne:selenide:4.10'
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
     compile group: 'org.springframework', name: 'spring-core', version: springVersion
     compile group: 'org.springframework', name: 'spring-context', version: springVersion
