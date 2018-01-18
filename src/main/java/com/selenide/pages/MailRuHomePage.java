@@ -25,6 +25,7 @@ public class MailRuHomePage {
 
     @FindBy(css = LOGIN_FIELD)
     private SelenideElement loginField;
+    //private SelenideElement loginField = $("#mailbox\:login");
 
     @FindBy(css = PASSWORD_FIELD)
     private SelenideElement passwordField;
