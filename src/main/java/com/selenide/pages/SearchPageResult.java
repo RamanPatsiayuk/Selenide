@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$$;
 public class SearchPageResult {
 
     public ElementsCollection getSearchResults(){
-        return $$(".responses__wrapper");
+        return $$("#js-result>li");
     }
 
     public SelenideElement getResult(int index) {

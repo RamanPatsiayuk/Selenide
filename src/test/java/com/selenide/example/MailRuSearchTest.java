@@ -24,7 +24,7 @@ public class MailRuSearchTest extends BaseTest {
     @Test
     public void mailRuSearchTest() {
         searchPageResult = mailRuHomePage.openHomePage().search("selenide");
-        searchPageResult.getSearchResults().shouldHave(CollectionCondition.size(10));
+        searchPageResult.getSearchResults().shouldHave(CollectionCondition.size(11));
         searchPageResult.getResult(0).shouldHave(text("Selenide: лаконичные и стабильные UI тесты на Java "));
     }
 }
