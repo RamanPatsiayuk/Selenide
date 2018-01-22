@@ -15,6 +15,6 @@ public class SearchPageResult {
     }
 
     public SelenideElement getResult(int index) {
-        return $("#li .result__li", index);
+        return $(String.format("#js-result_%d", index));
     }
 }
