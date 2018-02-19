@@ -30,12 +30,6 @@ public class MailRuLoginTest extends BaseTest {
     @Autowired
     private User user;
 
-    @Test
-    public void openMailRuHomePageTest() {
-        mailRuHomePage.openHomePage();
-        $(By.xpath("//title")).shouldHave(text(MAILRU_HOME_PAGE_TITLE));
-    }
-
     /*@Test
     public void loginToMailRuTest() {
         open("https://mail.ru/");
