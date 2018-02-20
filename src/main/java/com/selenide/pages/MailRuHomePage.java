@@ -59,7 +59,7 @@ public class MailRuHomePage {
             rememberCheckBox.click();
         }
         submitButton.click();
-        title.shouldHave(text(EMAIL_PAGE_TITLE));
+        //title.shouldHave(text(EMAIL_PAGE_TITLE));
         return page(EmailPage.class);
     }
 
