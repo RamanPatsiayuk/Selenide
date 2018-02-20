@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static com.selenide.utils.PageTitlesConstants.EMAIL_PAGE_TITLE;
 
@@ -23,7 +24,7 @@ public class MailRuHomePage {
     private static final String DOMAIN_FIELD = "#mailbox\\:domain";
     private static final String SUBMIT_BUTTON = "#mailbox\\:submit";
     private static final String REMEMBER_CHECKBOX = "#mailbox\\:saveauth";
-    private static final String TITLE = "//title";
+    private static final String PH_LOGOUT_LINK = "#PH_logoutLink";
 
     @FindBy(css = LOGIN_FIELD)
     private SelenideElement loginField;
@@ -43,8 +44,8 @@ public class MailRuHomePage {
     @FindBy(css = MAILBOX_CONTAINER)
     private SelenideElement mailBoxContainer;
 
-    @FindBy(xpath = TITLE)
-    private SelenideElement title;
+    @FindBy(css = PH_LOGOUT_LINK)
+    private SelenideElement logoutLink;
 
     public MailRuHomePage openHomePage() {
         open(URL);
@@ -59,7 +60,7 @@ public class MailRuHomePage {
             rememberCheckBox.click();
         }
         submitButton.click();
-        //title.shouldHave(text(EMAIL_PAGE_TITLE));
+        logoutLink.shouldBe(visible);
         return page(EmailPage.class);
     }
 
