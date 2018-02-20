@@ -1,6 +1,7 @@
-package com.selenide.example;
+package com.selenide.search;
 
 import com.codeborne.selenide.CollectionCondition;
+import com.selenide.BaseTest;
 import com.selenide.pages.MailRuHomePage;
 import com.selenide.pages.SearchPageResult;
 import org.junit.Test;

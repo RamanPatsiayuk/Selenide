@@ -14,7 +14,7 @@ buildscript {
         //classpath "io.qameta.allure:allure-gradle:2.5"
     }
 }
-group 'com.selenide.example'
+group 'com.selenide'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
